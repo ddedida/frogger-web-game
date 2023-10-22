@@ -50,7 +50,10 @@ class Frogger {
         }
 
         // SCORE
-        if (this.y < 0) scored();
+        if (this.y < 0) {
+            scored();
+            highScored();
+        }
     }
 
     draw() {

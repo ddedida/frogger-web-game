@@ -4,6 +4,7 @@ function animate() {
     ctx3.clearRect(0, 0, canvas.width, canvas.height);
     ctx4.clearRect(0, 0, canvas.width, canvas.height);
     ctx5.clearRect(0, 0, canvas.width, canvas.height);
+    hs.clearRect(0, 0, canvas_highscore.width, canvas_highscore.height);
 
     handleRipples();
     ctx2.drawImage(background, 0, 0, canvas.width, canvas.height);
@@ -13,6 +14,7 @@ function animate() {
 
     handleObstacles();
     handleScoreBoard();
+    handleScoreHighBoard();
     ctx4.drawImage(grass, 0, 0, canvas.width, canvas.height);
     frame++;
     requestAnimationFrame(animate);
@@ -37,8 +39,8 @@ window.addEventListener("keyup", function (e) {
 
 // Score
 function scored() {
-    score += 10;
-    gameSpeed += 0.5;
+    score += 100;
+    gameSpeed += 0.1;
     frogger.x = canvas.width / 2 - frogger.width / 2;
     frogger.y = canvas.height - frogger.height - 40;
 }
@@ -51,8 +53,22 @@ function handleScoreBoard() {
     ctx4.font = "30px Verdana";
     ctx4.fillText(score, 15, 60);
     ctx4.font = "15px Verdana";
-    ctx4.strokeText("Collisions: " + collisionCount, 15, 125);
-    ctx4.strokeText("Game Speed: " + gameSpeed.toFixed(1), 15, 145);
+    ctx4.strokeText("Game Speed: " + gameSpeed.toFixed(1), 15, 125);
+}
+
+function highScored() {
+    if (score > highscore) {
+        highscore += 100;
+    }
+}
+
+function handleScoreHighBoard() {
+    hs.fillStyle = "black";
+    hs.strokeStyle = "black";
+    hs.font = "15px Verdana";
+    hs.strokeText("HIGH SCORE:", 15, 25);
+    hs.font = "30px Verdana";
+    hs.fillText(highscore, 15, 60);
 }
 
 // Collisions
@@ -64,6 +80,5 @@ function resetGame() {
     frogger.x = canvas.width / 2 - frogger.width / 2;
     frogger.y = canvas.height - frogger.height - 40;
     score = 0;
-    collisionCount++;
     gameSpeed = 1;
 }

@@ -45,27 +45,27 @@ class Obstacle {
 
 function initObstacles() {
     // LANE 1
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 1; i++) {
         let x = i * 350;
-        carsArray.push(new Obstacle(x, canvas.height - grid * 2 - 20, grid * 2, grid, 1, "car"));
+        carsArray.push(new Obstacle(x, canvas.height - grid * 2 - 20, grid * 2, grid, 0.5, "car"));
     }
 
     // LANE 2
     for (let i = 0; i < 2; i++) {
         let x = i * 300;
-        carsArray.push(new Obstacle(x, canvas.height - grid * 3 - 20, grid * 2, grid, -1, "car"));
+        carsArray.push(new Obstacle(x, canvas.height - grid * 3 - 20, grid * 2, grid, -0.5, "car"));
     }
 
     // LANE 3
     for (let i = 0; i < 2; i++) {
         let x = i * 400;
-        carsArray.push(new Obstacle(x, canvas.height - grid * 4 - 20, grid * 2, grid, 2, "car"));
+        carsArray.push(new Obstacle(x, canvas.height - grid * 4 - 20, grid * 2, grid, 1, "car"));
     }
 
     // LANE 4
     for (let i = 0; i < 2; i++) {
         let x = i * 400;
-        logsArray.push(new Obstacle(x, canvas.height - grid * 5 - 20, grid * 2, grid, -1.5, "log"));
+        logsArray.push(new Obstacle(x, canvas.height - grid * 5 - 20, grid * 2, grid, -1, "log"));
     }
 
     // LANE 4
@@ -101,8 +101,13 @@ function handleObstacles() {
 
         for (let i = 0; i < logsArray.length; i++) {
             if (collision(frogger, logsArray[i])) {
-                frogger.x += logsArray[i].speed;
-                safe = true;
+                if (logsArray[i].type == "log") {
+                    frogger.x += -gameSpeed;
+                    safe = true;
+                } else {
+                    frogger.x += gameSpeed;
+                    safe = true;
+                }
             }
         }
 

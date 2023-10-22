@@ -23,14 +23,19 @@ const ctx5 = canvas5.getContext("2d");
 canvas5.width = 600;
 canvas5.height = 600;
 
+const canvas_highscore = document.getElementById("high-score");
+const hs = canvas_highscore.getContext("2d");
+canvas_highscore.width = 250;
+canvas_highscore.height = 250;
+
 // Global Variables
 const grid = 80;
 let keys = [];
 let score = 0;
-let collisionCount = 0;
 let frame = 0;
 let gameSpeed = 1;
 let safe = false;
+let highscore = 0;
 
 const particlesArray = [];
 const maxParticles = 300;
